@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .form{
+            display: flex;
+            justify-content: center;
+            font-size: 25px;
+            text-align: center;
+        }
+        .form input{
+            margin: 10px;
+            padding: 5px;
+            font-family: monospace;
+            font-size: 25px;
+            border:1px solid green;
+            cursor: pointer;
+        }
+        #submit:hover{
+            background-color: green;
+            color: white;
+            transition: 0.5s;
+            border:1px solid green;
+        }
+    </style>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+</head>
+<body>
+    <div class="form">
+        <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th><label for="id_url">Url:</label></th>
+                    <td>
+                        <input type="text" name="url" maxlength="30" required id="id_url">
+                    </td>
+                </tr>
+
+                <tr hidden>
+                    <th><label for="id_user">User:</label></th>
+                    <td>
+                        <select name="user" id="id_user">
+                            <option value="1" selected>User object (1)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr hidden>
+                    <th>
+                        <label for="id_total_likes">Total likes:</label>
+                    </th>
+                    <td>
+                        <input type="number" name="total_likes" value="0" required id="id_total_likes">
+                    </td>
+                </tr>
+
+                <tr hidden>
+                    <th>
+                        <label for="id_total_dislikes">Total dislikes:</label>
+                    </th>
+                    <td>
+                        <input type="number" name="total_dislikes" value="0" required id="id_total_dislikes">
+                    </td>
+                </tr>
+            </table>
+            <input id="submit" type="submit" value="Add">
+        </form>
+    </div>
+</body>
+</html>
