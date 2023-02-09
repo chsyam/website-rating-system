@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/30b120d6a8.js" crossorigin="anonymous"></script>
+    <style>
+        .opacity {
+            opacity: 0.1;
+        }
+
+        .opacity-none {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="h-full bg-[#141E30]">
+    <div class="header bg-white h-[70px] items-center px-1 font-sans flex justify-between">
+        <div class="logo text-3xl font-serif text-red-600 font-bolder mx-4">
+            Website Rating System
+        </div>
+        <div class="menu bg-white z-10">
+            <i id="check" class="fa-solid fa-bars text-3xl cursor-pointer mx-4"></i>
+            <ul
+                class="list border-2 text-center border-red-500 top-[80px] right-[20px] bg-white w-[350px] absolute rounded-tl-3xl">
+                <!-- <li class="text-right p-2">
+                    <i id="close"
+                        class="fa-solid fa-close cursor-pointer border-2 rounded-full px-3 py-2 hover:bg-red-500 hover:text-white duration-300"></i>
+                </li> -->
+                <li
+                    class="hover:bg-gray-300 hover:rounded-tl-3xl border-b p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard/add">Add New Website</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard/check">Check Website Status</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="#">About</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="selection" class="m-2 text-right">
+        <select name="" id="select" class="rounded-md font-serif p-1 cursor-pointer outline-0">
+            <option value="section">Select</option>
+            <option class="cursor-pointer" value="section1">
+                <span class="">Websites Uploaded by You</span>
+            </option>
+            <option class="cursor-pointer" value="section2">
+                <span class="">All Websites Except Yours</span>
+            </option>
+            <option class="cursor-pointer" value="section3">
+                <span class="">All Websites</span>
+            </option>
+            <option class="cursor-pointer" value="section4">
+                <span class="">All Websites Liked by You</span>
+            </option>
+            <option class="cursor-pointer" value="section5">
+                <span class="">All Websites DisLiked by You</span>
+            </option>
+        </select>
+        <button class="text-white border rounded-md hover:bg-white hover:text-black p-1 m-1 font-serif"
+            onclick="getOption()">Click</button>
+    </div>
+    <div id="section" class="description text-center text-gray-400 text-xl mt-12 font-serif">
+        <span class="">Hello user, click on above dropdown to see the filtered information.</span>
+    </div>
+    <div id="area" class="area z-9999">
+        <div id="section1" class="text-center">
+            {% if websites.added_list %}
+            <div class="text-white font-mono text-xl text-center m-5">
+                <p>All Websites Added by you</p>
+            </div>
+            <hr>
+            <div class="content m-[50px] flex justify-center flex-wrap">
+                {% for website in websites.added_list %}
+                <div
+                    class="card w-fit flex justify-around rounded-md font-serif m-2 bg-white border-4 rounded border-red-500">
+                    <table class="w-[250px] items-center text-black text-3xl h-[150px] text-center">
+                        <tbody class="">
+                            <tr>
+                                <td colspan="2" class="text-right">
+                                    <div id="user" class="text-right cursor-pointer text-gray-500 text-sm px-1">
+                                        #user
+                                        <!-- <span id="content" class="absolute bg-white text-sm text-right mx-4 rounded p-1">
+                                    posted this url
+                                </span> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border">
+                                <td colspan="2">
+                                    <a class="text-[18px] underline text-blue-500 truncate" target="_blank"
+                                        href="{{website.url}}">{{website.url}}</a>
+                                </td>
+                            </tr>
+                            <tr class="border">
+                                <td>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="number" name="user" value="{{website.user_id}}" hidden>
+                                        <input type="number" name="website" value="{{website.id}}" hidden>
+                                        <input type="number" name="like_or_dislike" value="1" hidden>
+                                        <button type="submit">
+                                            <i id="thumb-up"
+                                                class="up fa-regular fa-thumbs-up border border-white p-1 rounded-full text-4xl cursor-pointer"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="number" name="user" value="{{website.user_id}}" hidden>
+                                        <input type="number" name="website" value="{{website.id}}" hidden>
+                                        <input type="number" name="like_or_dislike" value="-1" hidden>
+                                        <button type="submit">
+                                            <i id="thumb-down"
+                                                class="fa-regular fa-thumbs-down border border-white p-1 rounded-full text-4xl cursor-pointer"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="thumb-up-count">{{website.total_likes}}</td>
+                                <td id="thumb-down-count">{{website.total_dislikes}}</td>
+                            </tr>
+                    </table>
+                </div>
+                {% endfor %}
+            </div>
+            <div>
+                {% else %}
+                <span class="font-serif text-gray-300 text-4xl">No records found</span>
+                {% endif %}
+            </div>
+        </div>
+        <div id="section2" class="text-center">
+            {% if websites.all_sites_except_current_user %}
+            <div class="text-white font-mono text-xl text-center m-5">
+                <p>All Websites except yours</p>
+            </div>
+            <hr>
+            <div class="content m-[50px] flex justify-center flex-wrap">
+                {% for website in websites.all_sites_except_current_user %}
+                <div
+                    class="card w-fit flex justify-around rounded-md font-serif m-2 bg-white border-4 rounded border-red-500">
+                    <table class="w-[250px] items-center text-black text-3xl h-[150px] text-center">
+                        <tbody class="">
+                            <tr>
+                                <td colspan="2" class="text-right">
+                                    <div id="user" class="text-right cursor-pointer text-gray-500 text-sm px-1">
+                                        #user
+                                        <!-- <span id="content" class="absolute bg-white text-sm text-right mx-4 rounded p-1">
+                                                posted this url
+                                            </span> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border">
+                                <td colspan="2">
+                                    <a class="text-[18px] underline text-blue-500 truncate" target="_blank"
+                                        href="{{website.url}}">{{website.url}}</a>
+                                </td>
+                            </tr>
+                            <tr class="border">
+                                <td>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="number" name="user" value="{{website.user_id}}" hidden>
+                                        <input type="number" name="website" value="{{website.id}}" hidden>
+                                        <input type="number" name="like_or_dislike" value="1" hidden>
+                                        <button type="submit">
+                                            <i id="thumb-up"
+                                                class="up fa-regular fa-thumbs-up border border-white p-1 rounded-full text-4xl cursor-pointer"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="number" name="user" value="{{website.user_id}}" hidden>
+                                        <input type="number" name="website" value="{{website.id}}" hidden>
+                                        <input type="number" name="like_or_dislike" value="-1" hidden>
+                                        <button type="submit">
+                                            <i id="thumb-down"
+                                                class="fa-regular fa-thumbs-down border border-white p-1 rounded-full text-4xl cursor-pointer"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="thumb-up-count">{{website.total_likes}}</td>
+                                <td id="thumb-down-count">{{website.total_dislikes}}</td>
+                            </tr>
+                    </table>
+                </div>
+                {% endfor %}
+            </div>
+            <div>
+                {% else %}
+                <span class="font-serif text-gray-300 text-4xl">No records found</span>
+                {% endif %}
+            </div>
+        </div>
+        <div id="section3" class="text-center">
+            {% if websites.all %}
+            <div class="text-white font-mono text-xl text-center m-5">
+                <p>List of all sites added by all users</p>
+            </div>
+            <hr>
+            <div class="content m-[50px] flex justify-center flex-wrap">
+                {% for website in websites.all %}
+                <div
+                    class="card w-fit flex justify-around rounded-md font-serif m-2 bg-white border-4 rounded border-red-500">
+                    <table class="w-[250px] items-center text-black text-3xl h-[150px] text-center">
+                        <tbody class="">
+                            <tr>
+                                <td colspan="2" class="text-right">
+                                    <div id="user" class="text-right cursor-pointer text-gray-500 text-sm px-1">
+                                        #user
+                                        <!-- <span id="content" class="absolute bg-white text-sm text-right mx-4 rounded p-1">
+                                                posted this url
+                                            </span> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border">
+                                <td colspan="2">
+                                    <a class="text-[18px] underline text-blue-500 truncate" target="_blank"
+                                        href="{{website.url}}">{{website.url}}</a>
+                                </td>
+                            </tr>
+                            <tr class="border">
+                                <td>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="number" name="user" value="{{website.user_id}}" hidden>
+                                        <input type="number" name="website" value="{{website.id}}" hidden>
+                                        <input type="number" name="like_or_dislike" value="1" hidden>
+                                        <button type="submit">
+                                            <i id="thumb-up"
+                                                class="up fa-regular fa-thumbs-up border border-white p-1 rounded-full text-4xl cursor-pointer"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="number" name="user" value="{{website.user_id}}" hidden>
+                                        <input type="number" name="website" value="{{website.id}}" hidden>
+                                        <input type="number" name="like_or_dislike" value="-1" hidden>
+                                        <button type="submit">
+                                            <i id="thumb-down"
+                                                class="fa-regular fa-thumbs-down border border-white p-1 rounded-full text-4xl cursor-pointer"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="thumb-up-count">{{website.total_likes}}</td>
+                                <td id="thumb-down-count">{{website.total_dislikes}}</td>
+                            </tr>
+                    </table>
+                </div>
+                {% endfor %}
+            </div>
+            <div>
+                {% else %}
+                <span class="font-serif text-gray-300 text-4xl">No records found</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $('.list').hide();
+    $('#check').click(function () {
+        $('.list').toggle(200);
+        $('.area').toggleClass("opacity");
+    });
+    $('#section1').hide()
+    $('#section2').hide()
+    $('#section3').hide()
+    $('#section4').hide()
+    $('#section5').hide()
+</script>
+<script>
+    function getOption() {
+        selectElement = document.querySelector('#select');
+        output = selectElement.value;
+        $('#section').hide()
+        $('#section1').hide()
+        $('#section2').hide()
+        $('#section3').hide()
+        $('#section4').hide()
+        $('#section5').hide()
+        $("#".concat(output)).show();
+    }
+</script>
+
+</html>

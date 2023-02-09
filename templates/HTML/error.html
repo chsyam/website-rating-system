@@ -1,16 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/30b120d6a8.js" crossorigin="anonymous"></script>
+    <style>
+        .opacity {
+            opacity: 0.1;
+        }
+
+        .opacity-none {
+            opacity: 1;
+        }
+    </style>
 </head>
-<body>
+
+<body class="h-full bg-[#141E30]">
+    <div class="header bg-white h-[70px] items-center px-1 font-sans flex justify-between">
+        <div class="logo text-3xl font-serif text-red-600 font-bolder mx-4">
+            Website Rating System
+        </div>
+        <div class="menu bg-white z-10">
+            <i id="check" class="fa-solid fa-bars text-3xl cursor-pointer mx-4"></i>
+            <ul
+                class="list border-2 text-center border-red-500 top-[80px] right-[20px] bg-white w-[350px] absolute rounded-tl-3xl">
+                <!-- <li class="text-right p-2">
+                        <i id="close"
+                            class="fa-solid fa-close cursor-pointer border-2 rounded-full px-3 py-2 hover:bg-red-500 hover:text-white duration-300"></i>
+                    </li> -->
+                <li
+                    class="hover:bg-gray-300 hover:rounded-tl-3xl border-b p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard/add">Add New Website</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard/check">Check Website Status</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="#">About</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <div class="text-center error">
         <h1 class="m-12 font-mono text-3xl text-red-500">URL is Invalid</h1>
-        <a href="/" class="font-mono text-2xl hover:no-underline underline text-blue-500">Home</a>
+        <a href="/dashboard" class="font-mono text-2xl hover:no-underline underline text-blue-500">Home</a>
     </div>
 </body>
+<script>
+    $('.list').hide();
+    $('#check').click(function () {
+        $('.list').toggle(200);
+        $('.area').toggleClass("opacity");
+    });
+    $('#close').click(function () {
+        $('.list').toggle(200);
+    })
+</script>
+
 </html>

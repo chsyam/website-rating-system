@@ -1,20 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/30b120d6a8.js" crossorigin="anonymous"></script>
+    <style>
+        .opacity {
+            opacity: 0.1;
+        }
+
+        table td {
+            font-size: larger;
+            padding: 10px;
+            text-align: left;
+            color: white;
+        }
+
+        table td input {
+            border-radius: 5px;
+            color: black;
+            padding: 5px;
+            outline: none;
+            border: 2px solid black;
+        }
+
+        table td input:focus {
+            border: 2px solid red;
+            box-shadow: 1px 1px 10px red;
+        }
+
+        input[type='submit'] {
+            border: 2px solid red;
+            padding: 10px;
+            font-size: larger;
+            margin-top: 30px;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        input[type='submit']:hover {
+            background-color: green;
+            color: black;
+            border: 2px solid green;
+            transition: 0.5s;
+        }
+    </style>
 </head>
-<body>
-    <div class="form">
-        <form action="" method="post">
-            {% csrf_token %}
-            <table>
-                {{ form.as_table }}
-            </table>
-            <input type="submit" value="Register">
-        </form>
+
+<body class="bg-[#141E30]">
+    <div class="header bg-white h-[70px] items-center px-1 font-sans flex justify-between">
+        <div class="logo text-3xl font-serif text-red-600 font-bolder mx-4">
+            Website Rating System
+        </div>
+        <div class="menu bg-white z-10">
+            <i id="check" class="fa-solid fa-bars text-3xl cursor-pointer mx-4"></i>
+            <ul
+                class="list border-2 text-center border-red-500 top-[80px] right-[20px] bg-white w-[350px] absolute rounded-tl-3xl">
+                <!-- <li class="text-right p-2">
+                            <i id="close"
+                                class="fa-solid fa-close cursor-pointer border-2 rounded-full px-3 py-2 hover:bg-red-500 hover:text-white duration-300"></i>
+                        </li> -->
+                <li
+                    class="hover:bg-gray-300 hover:rounded-tl-3xl border-b p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/">Home</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard/add">Add New Website</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/dashboard/check">Check Website Status</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="#">About</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/register">Register</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/login">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="area m-auto">
+        <div class="form mt-[50px] font-serif text-center">
+            <form action="" method="post">
+                {% csrf_token %}
+                <table class="m-auto">
+                    <tr class="">
+                        <td class="py-2">First Name</td>
+                        <td><input name="fname" type="text" id="fname" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td>
+                        <td><input name="lname" type="text" id="lname" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td><input name="username" type="text" id="username" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input name="email" type="text" id="email" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input name="password" type="password" id="password" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Confirm Password</td>
+                        <td><input name="cpassword" type="password" id="cpassword" required /></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Register">
+            </form>
+        </div>
     </div>
 </body>
+<script>
+    $('.list').hide();
+    $('#check').click(function () {
+        $('.list').toggle(200);
+        $('.area').toggleClass("opacity");
+    });
+    $('#close').click(function () {
+        $('.list').toggle(200);
+    })
+</script>
+
 </html>

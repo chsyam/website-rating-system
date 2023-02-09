@@ -82,8 +82,13 @@
                 </table>
                 <input
                     class="text-white font-serif border border-white p-2 rounded-xl cursor-pointer hover:bg-green-500 duration-300 hover:text-black"
-                    id="submit" type="submit" value="Check & Add">
+                    id="submit" type="submit" value="Check">
             </form>
+            <div class="text-green-500 text-5xl font-serif m-5  ">
+                {% for message in messages %}
+                <span>{{message}}</span>
+                {% endfor %}
+            </div>
         </div>
     </div>
 

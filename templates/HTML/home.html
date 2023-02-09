@@ -13,10 +13,6 @@
         .opacity {
             opacity: 0.1;
         }
-
-        input:focus {
-            box-shadow: 1px 1px 20px red;
-        }
     </style>
 </head>
 
@@ -35,6 +31,9 @@
                         </li> -->
                 <li
                     class="hover:bg-gray-300 hover:rounded-tl-3xl border-b p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/">Home</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
                     <a class="hover:underline" href="/dashboard">Dashboard</a>
                 </li>
                 <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
@@ -47,46 +46,41 @@
                     <a class="hover:underline" href="#">About</a>
                 </li>
                 <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
-                    <a class="hover:underline" href="/dashboard/logout">Logout</a>
+                    <a class="hover:underline" href="/register">Register</a>
+                </li>
+                <li class="hover:bg-gray-300 border p-2 font-serif decoration-0 text-xl hover:text-red-500">
+                    <a class="hover:underline" href="/login">Login</a>
                 </li>
             </ul>
         </div>
     </div>
     <div class="area">
-        <div class="form text-center font-serif">
-            <form action="" method="post">
-                {% csrf_token %}
-                <table class="mx-auto mt-[40px]">
-                    <tr>
-                        <td class="text-white px-5 text-2xl">
-                            <label for="id_url">Url </label>
-                        </td>
-                        <td>
-                            <input class="border-2 p-2 outline-none rounded focus:border-red-500 focus:border-3"
-                                type="text" name="url" required id="id_url">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="text-center">
-                            <div class="text-white text-[14px] m-5">( URL must includes http:// or https:// )</div>
-                        </td>
-                    </tr>
-                    <tr hidden>
-                        <th><label for="id_user">User:</label></th>
-                        <td>
-                            <select name="user" id="id_user">
-                                <option value={{user_id}} selected>{{user_name}}</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-                <input
-                    class="text-white font-serif border border-white p-2 rounded-xl cursor-pointer hover:bg-green-500 duration-300 hover:text-black"
-                    id="submit" type="submit" value="Check & Add">
-            </form>
+        <div
+            class="font-mono register_section border text-white mx-[20%] mt-[3%] text-center p-5 rounded-xl hover:bg-gray-400 hover:text-black duration-300">
+            <div class="">Get started with Website Rating System (WRS). Whether you are a webmaster, digital
+                marketer, or simply someone looking to improve their website's performance, our
+                system is designed to provide you with the feedback form & you need to make informed decisions.
+            </div>
+            <div class="text-center mt-[30px] text-red-500">
+                <a class="p-2 border-red-500 text-xl border-2 rounded hover:border-white duration-300 hover:bg-[#141E30] duration-300 hover:text-white"
+                    href="/register">Register -></a>
+            </div>
+        </div>
+        <div class="flex flex-wrap justify-around mt-[5%]">
+            <div
+                class="block2 h-fit rounded-md border w-[55%] p-3 text-center text-white font-mono hover:bg-gray-400 hover:text-black duration-300">
+                <div>
+                    It's an user-friendly web application designed to help you to evaluate and Our algorithm has an
+                    ability to check whether the website is real or fake? So why wait? Be a part of us by signing up for
+                    our website rating system today itself.
+                </div>
+                <div class="text-center rounded-xl p-1 m-3 mt-[30px] text-red-500">
+                    <a class="p-2 border-red-500 text-xl border-2 rounded hover:bg-[#141E30] duration-300 hover:text-white"
+                        href="/dashboard/check">Check a Website</a>
+                </div>
+            </div>
         </div>
     </div>
-
 </body>
 <script>
     $('.list').hide();
